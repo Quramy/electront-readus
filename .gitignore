@@ -4,3 +4,5 @@ node_modules/
 bower_components/
 qiita.md
 captures/
+.tmp
+atom-shell/

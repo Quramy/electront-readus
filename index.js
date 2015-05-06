@@ -2,8 +2,11 @@
 
 var remote = require('remote');
 var fileUtil = remote.require('./lib/fileUtil');
-
+var win = remote.getCurrentWindow();
 var ngModule = angular.module('readUs', []);
+
+var matched = location.search.match(/baseDir=([^&]*)/);
+var baseDir = matched && decodeURIComponent(matched[1]);
 
 ngModule.controller('MainController', function ($scope) {
   var main = this;
@@ -12,7 +15,7 @@ ngModule.controller('MainController', function ($scope) {
     main.fileText = fileUtil.getAsText(file.filepath);
   };
 
-  fileUtil.fetchReadmeList(function (err, fileList) {
+  fileUtil.fetchReadmeList(baseDir, function (err, fileList) {
     if(err) console.error(err);
     $scope.$apply(function () {
       main.fileList = fileList;
